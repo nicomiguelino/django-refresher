@@ -1,0 +1,13 @@
+version: "2"
+services:
+  dr-web:
+    image: nicomiguelino/dr-web
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: bash
+    ports:
+      - "8000:8000"
+    tty: true
+    volumes:
+      - ./:/usr/src/app/
