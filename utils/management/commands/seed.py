@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.core.management import call_command
 from django.core.management.base import BaseCommand
 from polls.models import Question, Choice
 
@@ -7,10 +8,7 @@ class Command(BaseCommand):
     help = "Seed the database with some questions and choices."
 
     def handle(self, *args, **options):
-        # Delete everything
-        get_user_model().objects.all().delete()
-        Question.objects.all().delete()
-        Choice.objects.all().delete()
+        call_command('flush', '--noinput')
 
         # Create superusers
         get_user_model().objects.create_superuser(
