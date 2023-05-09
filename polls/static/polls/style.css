@@ -1,0 +1,8 @@
+body {
+    background: white url("images/palm-trees.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+li a {
+    color: green;
+}
