@@ -1,13 +1,18 @@
 from django.contrib import admin
 
-from .models import Question, Choice
+from .models import Choice, Question
+
+class ChoiceInline(admin.TabularInline):
+    model = Choice
+    extra = 1
 
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(Choice)
-class ChoiceAdmin(admin.ModelAdmin):
-    pass
+    fieldsets = [
+        (None, {'fields': ['question_text']}),
+        ('Date information', {'fields': ['pub_date']}),
+    ]
+    inlines = [ChoiceInline]
+    list_display = ('question_text', 'pub_date', 'was_published_recently')
+    list_filter = ['pub_date']
