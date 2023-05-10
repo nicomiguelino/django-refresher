@@ -4,7 +4,7 @@ services:
     image: nicomiguelino/dr-web
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: ./docker/dev/Dockerfile.dev
     ports:
       - "8000:8000"
       - "8001:8001"
