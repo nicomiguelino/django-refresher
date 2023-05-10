@@ -1,0 +1,12 @@
+version: "2"
+services:
+  dr-web:
+    image: nicomiguelino/dr-web
+    build:
+      context: .
+      dockerfile: ./docker/prod/Dockerfile.prod
+    ports:
+      - "4000:4000"
+    tty: true
+    volumes:
+      - ./:/usr/src/app/
