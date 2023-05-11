@@ -6,9 +6,22 @@ services:
       context: .
       dockerfile: ./docker/prod/Dockerfile.prod
     env_file:
-      - ./.env.dev
-    ports:
-      - "4000:4000"
-    tty: true
+      - ./.env.prod
+    expose:
+      - 4000
     volumes:
-      - ./:/usr/src/app/
+      - sqlite3:/usr/src/database
+      - static_volume:/usr/src/app/staticfiles
+    tty: true
+  dr-nginx:
+    image: nicomiguelino/dr-nginx
+    build:
+      context: .
+      dockerfile: ./docker/prod/Dockerfile.nginx
+    ports:
+      - "8000:80"
+    volumes:
+      - static_volume:/usr/src/app/staticfiles
+volumes:
+  sqlite3:
+  static_volume:

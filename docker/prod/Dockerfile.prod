@@ -15,12 +15,14 @@ RUN pip3 install wheel
 
 COPY requirements/requirements.common.txt /tmp/requirements.common.txt
 COPY requirements/requirements.prod.txt /tmp/requirements.prod.txt
+COPY . /usr/src/app
 
 RUN pip3 install \
     -r /tmp/requirements.common.txt \
     -r /tmp/requirements.prod.txt
 
-RUN mkdir -p /usr/src/app
+RUN mkdir -p /usr/src/app && \
+    mkdir -p /usr/src/database
 WORKDIR /usr/src/app
 
 CMD ["./scripts/start_server.sh", "--prod"]

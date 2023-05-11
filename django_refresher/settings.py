@@ -76,10 +76,16 @@ WSGI_APPLICATION = 'django_refresher.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+def get_sqlite3_database_path():
+    if environ.get('ENVIRONMENT') == 'development':
+        return BASE_DIR / 'db.sqlite3'
+    else:
+        return '/usr/src/database/db.sqlite3'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': get_sqlite3_database_path(),
     }
 }
 
@@ -121,6 +127,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIR = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
