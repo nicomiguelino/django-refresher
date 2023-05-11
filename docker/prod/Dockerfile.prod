@@ -13,8 +13,12 @@ RUN apt-get update -y && \
 RUN c_rehash
 RUN pip3 install wheel
 
-COPY requirements/requirements.dev.txt /tmp/requirements.dev.txt
-RUN pip3 install -r /tmp/requirements.dev.txt
+COPY requirements/requirements.common.txt /tmp/requirements.common.txt
+COPY requirements/requirements.prod.txt /tmp/requirements.prod.txt
+
+RUN pip3 install \
+    -r /tmp/requirements.common.txt \
+    -r /tmp/requirements.prod.txt
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app

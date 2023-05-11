@@ -13,11 +13,11 @@ while [[ $# -gt 0 ]]; do
     case $key in
         --dev)
             echo "Running in development mode"
-            ./manage.py runserver 0.0.0.0:8000
             sqlite_web \
                 --host 0.0.0.0 \
                 --port 8001 \
                 db.sqlite3 &
+            ./manage.py runserver 0.0.0.0:8000
             ;;
         --prod)
             echo "Running in production mode"
